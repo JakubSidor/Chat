@@ -1,4 +1,4 @@
-package Server;
+package Client;
 
 public enum Operation {
 
@@ -21,4 +21,5 @@ public enum Operation {
     GET_HISTORY_FAILED,
 
     LOGOUT,
+
 }
