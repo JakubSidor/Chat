@@ -62,7 +62,7 @@ public class Connection implements Runnable{
 
         switch (Operation.valueOf(data[2]))
         {
-            case LOGIN -> {
+            case LOGIN:
                 if(Users.getInstance().tryLogin(this, data[0], data[1]))
                 {
                     Users.getInstance().getEntityById(data[4]).sendMessage(data[3]);
@@ -72,8 +72,9 @@ public class Connection implements Runnable{
                 {
                     sendMessage(Operation.LOGIN_FAILED.toString());
                 }
-            }
-            case SEND_MESSAGE -> {
+                break;
+
+            case SEND_MESSAGE:
                 if(Users.getInstance().checkLogin(data[0], data[1]))
                 {
                     //wysylanie do innych userow
@@ -83,9 +84,9 @@ public class Connection implements Runnable{
                 {
                     sendMessage(Operation.SEND_MESSAGE_FAILED.toString());
                 }
-            }
+                break;
 
-            case FILE_TRANSFER -> {
+            case FILE_TRANSFER:
                 if(Users.getInstance().checkLogin(data[0], data[1]))
                 {
 
@@ -94,9 +95,9 @@ public class Connection implements Runnable{
                 {
                     sendMessage(Operation.FILE_TRANSFER_FAILED.toString());
                 }
-            }
+                break;
 
-            case GET_HISTORY -> {
+            case GET_HISTORY:
                 if(Users.getInstance().checkLogin(data[0], data[1]))
                 {
 
@@ -105,7 +106,7 @@ public class Connection implements Runnable{
                 {
                     sendMessage(Operation.GET_HISTORY_FAILED.toString());
                 }
-            }
+                break;
         }
     }
 }
