@@ -5,14 +5,13 @@ import java.net.Socket;
 
 public class Connection implements Runnable{
 
-    private String login;
     private Socket socket;
     private BufferedReader reader;
     private PrintWriter writer;
     private DataOutputStream dataOutput;
     private DataInputStream dataInput;
 
-    public Connection(Socket socket, String login)
+    public Connection(Socket socket)
     {
         this.socket = socket;
         try {
@@ -58,6 +57,7 @@ public class Connection implements Runnable{
     // line - [login]:[hasło]:[typoperacji]:[arg1]:[arg2]:[arg...n]
     public void Action(String line)
     {
+        System.out.println("[SERVER-LOG] MESSAGE RECEIVED : " + line);
         String data[] = line.split(":");
 
         switch (Operation.valueOf(data[2]))

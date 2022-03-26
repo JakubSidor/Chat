@@ -14,7 +14,7 @@ public class Client {
     private DataOutputStream dataOutput;
     private DataInputStream dataInput;
 
-    public Client(String address, int port) throws IOException {
+    public Client(String address, int port) throws IOException, InterruptedException {
         this.address = address;
         this.port = port;
 
@@ -30,10 +30,16 @@ public class Client {
         {
             e.printStackTrace();
         }
+
+        while (true)
+        {
+            writer.println("PING::SEND_MESSAGE");
+            writer.flush();
+            Thread.sleep(1000);
+        }
     }
 
     public void menu(){
-
         int choose = 0;
         while (true) {
             System.out.println("********  USER MENU  ********");
