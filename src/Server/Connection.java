@@ -30,7 +30,7 @@ public class Connection implements Runnable{
             String line;
             try {
                 line = reader.readLine();
-                Action(line);
+                action(line);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -39,6 +39,7 @@ public class Connection implements Runnable{
 
     public void sendMessage(String message){
         writer.println(message);
+        writer.flush();
     }
 
     public void sendData(byte[] data)
@@ -55,7 +56,7 @@ public class Connection implements Runnable{
     }
 
     // line - [login]:[hasło]:[typoperacji]:[arg1]:[arg2]:[arg...n]
-    public void Action(String line)
+    public void action(String line)
     {
         System.out.println("[SERVER-LOG] MESSAGE RECEIVED : " + line);
         String data[] = line.split(":");
@@ -65,7 +66,6 @@ public class Connection implements Runnable{
             case LOGIN:
                 if(Users.getInstance().tryLogin(this, data[0], data[1]))
                 {
-                    Users.getInstance().getEntityById(data[4]).sendMessage(data[3]);
                     sendMessage(Operation.LOGIN_OK.toString());
                 }
                 else
@@ -78,6 +78,7 @@ public class Connection implements Runnable{
                 if(Users.getInstance().checkLogin(data[0], data[1]))
                 {
                     //wysylanie do innych userow
+                    Users.getInstance().getEntityById(data[4]).sendMessage(data[3]);
                     sendMessage(Operation.SEND_MESSAGE_OK.toString());
                 }
                 else

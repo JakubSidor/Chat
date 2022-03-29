@@ -11,10 +11,13 @@ public class Users {
     private static Users instance = null;
 
     private Users(){
-        User u = new User("USER", "PASS");
+        User u1 = new User("USER1", "PASS1");
+        User u2 = new User("USER2", "PASS2");
 
-        users.add(u);
-        entities.add(u);
+        users.add(u1);
+        users.add(u2);
+        entities.add(u1);
+        entities.add(u2);
         entities.add(new Group("DEFAULT GROUP"));
     }
 
